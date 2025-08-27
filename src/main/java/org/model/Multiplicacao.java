@@ -1,4 +1,4 @@
-package model;
+package org.model;
 
 public class Multiplicacao implements Operacao {
     public int calc(int a , int b) {

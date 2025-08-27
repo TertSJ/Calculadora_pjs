@@ -1,4 +1,4 @@
-package model;
+package org.model;
 
 public class Divisao implements Operacao{
     @Override
