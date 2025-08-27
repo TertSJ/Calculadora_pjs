@@ -1,0 +1,7 @@
+package model;
+
+public class Multiplicacao implements Operacao {
+    public int calc(int a , int b) {
+        return a*b ;
+    }
+}
