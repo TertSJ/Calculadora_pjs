@@ -46,7 +46,7 @@ public class Menu {
             // Procura o método "executar"
             Method metodo = atualOp.getMethod("calc");
 
-            System.out.println(metodo.invoke(instancia));
+
         }
 
 
