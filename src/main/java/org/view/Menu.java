@@ -18,8 +18,8 @@ public class Menu {
         Scanner s = new Scanner(System.in);
 
         Reflections reflection = new Reflections("org.model");
-        int opcao = 0;
-        int a = 0 , b = 0 ;
+        int opcao;
+        int primeiroNumero = 0 , segundoNumero = 0, resultado =0 ;
 
         Class<? extends Operacao> atualOp;
 
@@ -31,27 +31,42 @@ public class Menu {
             System.out.println((i + 1) + " - " + operacoesLista.get(i).getSimpleName());
         }
         System.out.println("0 - Sair");
-        System.out.println("Digite uma opção :");
+        System.out.println("Digite uma opção : ");
         opcao = s.nextInt();
 
-        if (opcao<= operacoesLista.size()){
-            System.out.print("Digite o primeiro número : ");
-            a = s.nextInt();
-            System.out.print("Digite o segundo número : ");
-            b = s.nextInt();
-
-            atualOp = operacoesLista.get(opcao);
-            Object instancia = atualOp.getDeclaredConstructor().newInstance();
-
-            // Procura o método "executar"
-            Method metodo = atualOp.getMethod("calc");
+        while (opcao != 0) {
 
 
+            try {
+                Class<? extends Operacao> claseAtual = operacoesLista.get(opcao - 1);
+                Operacao operacao = claseAtual.getDeclaredConstructor().newInstance();
+
+                System.out.println(claseAtual.getSimpleName() + " foi selecionada.");
+
+                System.out.print("Digite o primeiro número da "+ claseAtual.getSimpleName() + " : ");
+                primeiroNumero = s.nextInt();
+                System.out.print("Digite o segundo número da " + claseAtual.getSimpleName() + " : " );
+                segundoNumero = s.nextInt();
+
+
+
+
+                resultado = operacao.calc(primeiroNumero, segundoNumero);
+
+                System.out.println("O resultado da " + claseAtual.getSimpleName() + " de " + primeiroNumero + operacao.sinal() + segundoNumero + " foi = " + resultado);
+            }catch (Exception e){
+                System.out.println("Operação invalida!");
+            }
+
+            for (int i = 0; i < operacoesLista.size(); i++){
+                System.out.println((i + 1) + " - " + operacoesLista.get(i).getSimpleName());
+            }
+            System.out.println("0 - Sair");
+            System.out.println("Digite uma opção :");
+
+
+            opcao = s.nextInt();
         }
-
-
-
-
 
     }
 }

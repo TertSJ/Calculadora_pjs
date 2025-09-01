@@ -8,4 +8,9 @@ public class Divisao implements Operacao{
         }
         return a/b;
     }
+
+    @Override
+    public String sinal() {
+        return " / ";
+    }
 }
