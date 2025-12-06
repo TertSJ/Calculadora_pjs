@@ -1,12 +1,11 @@
 package org.view;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.Scanner;
 
-import javassist.tools.reflect.Reflection;
+import org.Controller.ControllerCalculadora;
 import org.model.Operacao;
 import org.reflections.Reflections;
 
@@ -19,20 +18,19 @@ public class Menu {
 
         Reflections reflection = new Reflections("org.model");
         int opcao;
-        int primeiroNumero = 0 , segundoNumero = 0, resultado =0 ;
+        int primeiroNumero , segundoNumero, resultado ;
 
-        Class<? extends Operacao> atualOp;
-
-        Set<Class <? extends Operacao>> classeOperacoes = reflection.getSubTypesOf(Operacao.class);
-        List<Class <? extends Operacao>> operacoesLista = new ArrayList<>(classeOperacoes);
-
+        Set<Class <? extends Operacao>> classesOperacoes = reflection.getSubTypesOf(Operacao.class);
+        List<Class <? extends Operacao>> operacoesLista = new ArrayList<>(classesOperacoes);
 
         for (int i = 0; i < operacoesLista.size(); i++){
             System.out.println((i + 1) + " - " + operacoesLista.get(i).getSimpleName());
+
         }
+
         System.out.println("0 - Sair");
         System.out.println("Digite uma opção : ");
-        opcao = s.nextInt();
+        opcao = Integer.parseInt(s.nextLine().trim());
 
         while (opcao != 0) {
 
@@ -44,14 +42,13 @@ public class Menu {
                 System.out.println(claseAtual.getSimpleName() + " foi selecionada.");
 
                 System.out.print("Digite o primeiro número da "+ claseAtual.getSimpleName() + " : ");
-                primeiroNumero = s.nextInt();
+                primeiroNumero = Integer.parseInt(s.nextLine().trim());
                 System.out.print("Digite o segundo número da " + claseAtual.getSimpleName() + " : " );
-                segundoNumero = s.nextInt();
+                segundoNumero = Integer.parseInt(s.nextLine().trim());
 
 
-
-
-                resultado = operacao.calc(primeiroNumero, segundoNumero);
+                ControllerCalculadora controlador = new ControllerCalculadora();
+                resultado = controlador.executarOperacao(operacao, primeiroNumero, segundoNumero);
 
                 System.out.println("O resultado da " + claseAtual.getSimpleName() + " de " + primeiroNumero + operacao.sinal() + segundoNumero + " foi = " + resultado);
             }catch (Exception e){

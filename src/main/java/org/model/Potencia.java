@@ -5,7 +5,7 @@ public class Potencia implements Operacao{
     public int calc(int a, int b) {
         int resultado = 1;
 
-        for (int qMulti = 0; qMulti <= b; qMulti++ ){
+        for (int qMulti = 0; qMulti < b; qMulti++ ){
             resultado = resultado * a;
 
         }
